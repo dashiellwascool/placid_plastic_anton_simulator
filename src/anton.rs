@@ -49,7 +49,7 @@ fn move_antons(mut query: Query<(&mut Anton, &mut Transform)>, time: Res<Time>) 
 
         if rand::random_range(0..=1) == 0 {
             let dir = rand::random_range(0.0..(PI * 2.0));
-            anton.movement = Vec2::new(f32::cos(dir), f32::sin(dir)) * 100.0;
+            anton.movement = Vec2::from_angle(dir) * 100.0;
         } else {
             anton.movement = Vec2::ZERO;
         }
