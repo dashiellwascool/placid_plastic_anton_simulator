@@ -1,12 +1,18 @@
-use bevy::{color::palettes::css::BLUE, gltf::GltfMesh, prelude::*};
-use parry2d::{math::Point, shape::TriMesh};
+use bevy::{color::palettes::css::BLUE, prelude::*};
+use parry2d::{math::Point, na::Vector2, query::{PointQuery, Ray, RayCast}, shape::TriMesh};
 
-use crate::{GameAssets, GameState};
+use crate::GameState;
 
 mod setup;
 
 #[derive(Resource, Deref, DerefMut)]
 pub struct ApartmentMesh(TriMesh);
+
+impl ApartmentMesh {
+    pub fn point_inside(&self, point: Vec2) -> bool {
+        self.0.contains_local_point(&Point::new(point.x, point.y))
+    }
+}
 
 pub struct ApartmentMappingPlugin;
 impl Plugin for ApartmentMappingPlugin {
