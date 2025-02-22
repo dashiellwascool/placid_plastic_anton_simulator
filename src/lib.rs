@@ -1,4 +1,5 @@
 use apartment::ApartmentPlugin;
+use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use camera::GameCameraPlugin;
@@ -6,6 +7,7 @@ use camera::GameCameraPlugin;
 mod camera;
 mod anton;
 mod apartment;
+mod apartment_mapping;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -21,6 +23,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
         app.add_plugins((
             GameCameraPlugin,
             ApartmentPlugin,
+            ApartmentMappingPlugin,
             //AntonPlugin
         ));
 
@@ -45,6 +48,9 @@ pub enum GameState {
 pub struct GameAssets {
     #[asset(path = "apartment.glb")]
     apartment: Handle<Gltf>,
+
+    #[asset(path = "apartment_floor.glb")]
+    apartment_floor: Handle<Gltf>,
 
     #[asset(path = "antons/furryton.png")]
     furryton: Handle<Image>
