@@ -1,6 +1,6 @@
 use std::{f32::consts::PI, time::Duration};
 
-use bevy::{math::VectorSpace, prelude::*};
+use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 
 use crate::GameState;
@@ -15,10 +15,15 @@ impl Plugin for AntonPlugin {
     }
 }
 
-fn spawn_anton(mut commands: Commands, assets: Res<AntonAssets>) {
+fn spawn_anton(mut commands: Commands, assets: Res<AntonAssets>, images: Res<Assets<Image>>) {
+    let size = images.get(&assets.furryton).unwrap().size();
     commands.spawn((
         Anton::default(),
-        Sprite::from_image(assets.furryton.clone()),
+        Sprite {
+            image: assets.furryton.clone(),
+            custom_size: Some(size.as_vec2() * 0.25),
+            ..default()
+        },
     ));
 }
 
