@@ -1,3 +1,4 @@
+use anton::AntonPlugin;
 use apartment::ApartmentPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
@@ -21,7 +22,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
         app.add_plugins((
             GameCameraPlugin,
             ApartmentPlugin,
-            //AntonPlugin
+            AntonPlugin
         ));
 
         app.init_state::<GameState>();

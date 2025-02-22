@@ -8,3 +8,4 @@ bevy = "0.15.2"
 bevy_asset_loader = "0.22.0"
 bevy_panorbit_camera = "0.23.0"
 rand = "0.9.0"
+bevy_mod_billboard = { git = "https://github.com/voximity/bevy_mod_billboard", branch = "migrate-0.15"}
