@@ -1,4 +1,4 @@
-use bevy::{color::palettes::css::BLUE, prelude::*};
+use bevy::{color::palettes::css::{BLUE, LIME, RED}, prelude::*};
 use parry2d::{math::Point, na::Vector2, query::{PointQuery, Ray, RayCast}, shape::TriMesh};
 
 use crate::GameState;
@@ -10,7 +10,7 @@ pub struct ApartmentMesh(TriMesh);
 
 impl ApartmentMesh {
     pub fn point_inside(&self, point: Vec2) -> bool {
-        self.0.contains_local_point(&Point::new(point.x, point.y))
+        self.contains_local_point(&Point::new(point.x, point.y))
     }
 }
 
@@ -26,5 +26,17 @@ fn debug(mut gizmos: Gizmos, mesh: Res<ApartmentMesh>) {
     gizmos.linestrip(mesh.0.vertices().iter().map(|p| Vec3::new(p.x, 0., p.y)), BLUE);
     for p in mesh.0.vertices().iter() {
         gizmos.sphere(Isometry3d::from_xyz(p.x, 0., p.y), 0.05, BLUE);
+    }
+
+    let test_points = vec![Vec2::new(0., 0.), Vec2::new(-5., 0.), Vec2::new(-1.17689, -0.004271), Vec2::new(-1.14602, -0.04187)];
+    for point in test_points {
+        let success = mesh.point_inside(point);
+        let color = match success {
+            true => LIME,
+            false => RED
+        };
+
+        gizmos.sphere(Isometry3d::from_xyz(point.x, 0., point.y), 0.01, color);
+
     }
 }
