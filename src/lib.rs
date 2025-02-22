@@ -1,10 +1,11 @@
-use anton::{AntonAssets, AntonPlugin};
+use apartment::ApartmentPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use camera::GameCameraPlugin;
 
 mod camera;
 mod anton;
+mod apartment;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -19,7 +20,8 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
 
         app.add_plugins((
             GameCameraPlugin,
-            AntonPlugin
+            ApartmentPlugin,
+            //AntonPlugin
         ));
 
         app.init_state::<GameState>();
@@ -27,7 +29,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
         app.add_loading_state(
             LoadingState::new(GameState::Loading)
                 .continue_to_state(GameState::Playing)
-                .load_collection::<AntonAssets>()
+                .load_collection::<GameAssets>()
         );
     }
 }
@@ -37,4 +39,13 @@ pub enum GameState {
     #[default]
     Loading,
     Playing
+}
+
+#[derive(AssetCollection, Resource)]
+pub struct GameAssets {
+    #[asset(path = "apartment.glb")]
+    apartment: Handle<Gltf>,
+
+    #[asset(path = "antons/furryton.png")]
+    furryton: Handle<Image>
 }

@@ -1,9 +1,8 @@
 use std::{f32::consts::PI, time::Duration};
 
 use bevy::prelude::*;
-use bevy_asset_loader::prelude::*;
 
-use crate::GameState;
+use crate::{GameAssets, GameState};
 
 pub struct AntonPlugin;
 impl Plugin for AntonPlugin {
@@ -15,7 +14,7 @@ impl Plugin for AntonPlugin {
     }
 }
 
-fn spawn_anton(mut commands: Commands, assets: Res<AntonAssets>, images: Res<Assets<Image>>) {
+fn spawn_anton(mut commands: Commands, assets: Res<GameAssets>, images: Res<Assets<Image>>) {
     let size = images.get(&assets.furryton).unwrap().size();
     commands.spawn((
         Anton::default(),
@@ -32,12 +31,6 @@ fn spawn_anton(mut commands: Commands, assets: Res<AntonAssets>, images: Res<Ass
 pub struct Anton {
     movement: Vec2,
     timer: Timer
-}
-
-#[derive(AssetCollection, Resource)]
-pub struct AntonAssets {
-    #[asset(path = "antons/furryton.png")]
-    furryton: Handle<Image>
 }
 
 fn move_antons(mut query: Query<(&mut Anton, &mut Transform)>, time: Res<Time>) {
