@@ -26,7 +26,8 @@ fn spawn_anton(mut commands: Commands, assets: Res<GameAssets>, images: Res<Asse
         Anton,
         Transform::from_xyz(0.0, size.y / 2.0, 0.0),
         BillboardTexture(assets.furryton.clone()),
-        BillboardMesh(meshes.add(Rectangle::from_size(size)))
+        BillboardMesh(meshes.add(Rectangle::from_size(size))),
+        BillboardLockAxis { y_axis: true, rotation: false },
     ));
 }
 
