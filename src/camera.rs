@@ -18,5 +18,9 @@ fn setup(mut commands: Commands) {
     //    }
     //));
 
-    commands.spawn(PanOrbitCamera::default());
+    commands.insert_resource(ClearColor(Color::srgb(0.35, 0.48, 0.66)));
+
+    commands.spawn(
+        PanOrbitCamera::default()
+    );
 }
