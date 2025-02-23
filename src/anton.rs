@@ -22,7 +22,7 @@ fn spawn_anton(mut commands: Commands, assets: Res<GameAssets>, images: Res<Asse
     let px_size = images.get(&assets.furryton).unwrap().size().as_vec2();
     let size = Vec2::new(px_size.x / PIXELS_PER_METER, px_size.y / PIXELS_PER_METER);
 
-    for _ in 0..1000 {
+    for _ in 0..150 {
         Anton::spawn_random(&mut commands, &assets, &images, &mut meshes);
     }
 }
