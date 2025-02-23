@@ -1,5 +1,4 @@
 use anton::AntonPlugin;
-use antons::AntonsPlugin;
 use apartment::ApartmentPlugin;
 use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
@@ -8,11 +7,10 @@ use camera::GameCameraPlugin;
 use ui::TheUiPlugin;
 
 mod camera;
-mod anton;
 mod apartment;
 mod apartment_mapping;
 mod ui;
-mod antons;
+mod anton;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -31,7 +29,6 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
             ApartmentMappingPlugin,
             AntonPlugin,
             TheUiPlugin,
-            AntonsPlugin,
         ));
 
         app.init_state::<GameState>();
@@ -51,20 +48,66 @@ pub enum GameState {
     Playing
 }
 
+// wow this is awful...
 #[derive(AssetCollection, Resource)]
 pub struct GameAssets {
+    // world assets
     #[asset(path = "apartment.glb")]
     apartment: Handle<Gltf>,
-
     #[asset(path = "apartment_floor.glb")]
     apartment_floor: Handle<Gltf>,
 
-    #[asset(path = "antons/furryton.png")]
-    furryton: Handle<Image>,
-
+    // ui assets
     #[asset(path = "fonts/FuzzyBubbles-Regular.ttf")]
     font_fuzzybubbles: Handle<Font>,
-
     #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
     font_fuzzybubbles_bold: Handle<Font>,
+
+    // antons
+    #[asset(path = "antons/bus_driver.png")]
+    bus_driver: Handle<Image>,
+    #[asset(path = "antons/caffeine_king.png")]
+    caffeine_king: Handle<Image>,
+    #[asset(path = "antons/camping_ton.png")]
+    camping_ton: Handle<Image>,
+    #[asset(path = "antons/ctrl_f_u.png")]
+    ctrl_f_u: Handle<Image>,
+    #[asset(path = "antons/daily_anton_16.png")]
+    daily_anton_16: Handle<Image>,
+    #[asset(path = "antons/friday_frogger.png")]
+    friday_frogger: Handle<Image>,
+    #[asset(path = "antons/furryton.png")]
+    furryton: Handle<Image>,
+    #[asset(path = "antons/greger.png")]
+    greger: Handle<Image>,
+    #[asset(path = "antons/happy_zergling.png")]
+    happy_zergling: Handle<Image>,
+    #[asset(path = "antons/honk_networker.png")]
+    honk_networker: Handle<Image>,
+    #[asset(path = "antons/molerat.png")]
+    molerat: Handle<Image>,
+    #[asset(path = "antons/mug.png")]
+    mug: Handle<Image>,
+    #[asset(path = "antons/pentacat.png")]
+    pentacat: Handle<Image>,
+    #[asset(path = "antons/pernilla.png")]
+    pernilla: Handle<Image>,
+    #[asset(path = "antons/pet_rocket_racer.png")]
+    pet_rocket_racer: Handle<Image>, // it just keeps going!!!
+    #[asset(path = "antons/rover.png")]
+    rover: Handle<Image>,
+    #[asset(path = "antons/rubton.png")]
+    rubton: Handle<Image>,
+    #[asset(path = "antons/scarecrow_art.png")]
+    scarecrow_art: Handle<Image>,
+    #[asset(path = "antons/smoking_catboy_anton_flipping_you_off.png")]
+    smoking_catboy_anton_flipping_you_off: Handle<Image>,
+    #[asset(path = "antons/snail_trail.png")]
+    snail_trail: Handle<Image>,
+    #[asset(path = "antons/vanilla_icecream.png")]
+    vanilla_icecream: Handle<Image>,
+    #[asset(path = "antons/warewolf.png")]
+    warewolf: Handle<Image>,
+    #[asset(path = "antons/xtreme_xplosive_fisher.png")]
+    xtreme_xplosive_fisher: Handle<Image>,
 }
