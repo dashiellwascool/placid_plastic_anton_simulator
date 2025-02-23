@@ -1,4 +1,5 @@
 use anton::AntonPlugin;
+use antons::AntonsPlugin;
 use apartment::ApartmentPlugin;
 use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
@@ -11,6 +12,7 @@ mod anton;
 mod apartment;
 mod apartment_mapping;
 mod ui;
+mod antons;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -29,6 +31,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
             ApartmentMappingPlugin,
             AntonPlugin,
             TheUiPlugin,
+            AntonsPlugin,
         ));
 
         app.init_state::<GameState>();
