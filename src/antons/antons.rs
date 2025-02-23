@@ -1,10 +1,12 @@
 use bevy::prelude::*;
 use bevy_mod_billboard::prelude::*;
+use rand::Rng;
+use rand::distr::{Distribution, StandardUniform};
 
 use crate::anton::Anton;
 use crate::GameAssets;
 
-#[derive(Component)]
+#[derive(Component, Debug)]
 pub enum Antons {
     Furryton,
     BusDriver,
@@ -45,5 +47,17 @@ impl Antons {
         entity.id()
     }
 
-    // TODO: fn get_random()
+    fn spawn_random(commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
+        let anton: Antons = rand::random();
+        Antons::spawn(anton, commands, assets)
+
+    }
+}
+
+impl Distribution<Antons> for StandardUniform {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Antons {
+        match rng.random_range(0..22) { // Has to be updated for every anton...
+            _ => Antons::Furryton
+        }
+    }
 }
