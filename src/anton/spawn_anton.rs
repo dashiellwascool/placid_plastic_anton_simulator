@@ -6,6 +6,8 @@ use crate::{anton::{anton_type::AntonType, movement::Wandering, Anton}, GameAsse
 const PX_SIZE: Vec2 = Vec2::new(496., 662.); // :o)
 const PIXELS_PER_METER: f32 = 1500.0;
 
+const SPAWN_LOCATION: Vec3 = Vec3::new(0.663, 0., -0.410);
+
 #[derive(Event)]
 pub struct SpawnRandomAnton; // Possibly rename and have a Some(AntonType) and spawn random if None
 pub fn spawn_anton(_trigger: Trigger<SpawnRandomAnton>, mut commands: Commands, assets: Res<GameAssets>, mut meshes: ResMut<Assets<Mesh>>) {
@@ -16,7 +18,7 @@ pub fn spawn_anton(_trigger: Trigger<SpawnRandomAnton>, mut commands: Commands, 
     
     random_anton.insert((
         Anton,
-        Transform::from_xyz(0.0, size.y / 2.0, 0.0),
+        Transform::from_xyz(SPAWN_LOCATION.x, size.y / 2.0, SPAWN_LOCATION.z),
         BillboardMesh(meshes.add(Rectangle::from_size(size))),
         BillboardLockAxis { y_axis: true, rotation: false },
         Wandering::default(),
