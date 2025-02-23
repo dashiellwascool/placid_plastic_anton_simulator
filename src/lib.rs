@@ -4,13 +4,16 @@ use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use camera::GameCameraPlugin;
+use game_handler::GameHandlerPlugin;
 use ui::TheUiPlugin;
+use bevy_mod_billboard::prelude::*;
 
-mod camera;
+mod anton;
 mod apartment;
 mod apartment_mapping;
+mod camera;
 mod ui;
-mod anton;
+mod game_handler;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -24,11 +27,15 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
         }));
 
         app.add_plugins((
+            // Our plugins
             GameCameraPlugin,
             ApartmentPlugin,
             ApartmentMappingPlugin,
             AntonPlugin,
             TheUiPlugin,
+            GameHandlerPlugin,
+            // Library plugins
+            BillboardPlugin
         ));
 
         app.init_state::<GameState>();
@@ -36,7 +43,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
         app.add_loading_state(
             LoadingState::new(GameState::Loading)
                 .continue_to_state(GameState::Playing)
-                .load_collection::<GameAssets>()
+                .load_collection::<GameAssets>(),
         );
     }
 }
@@ -45,7 +52,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
 pub enum GameState {
     #[default]
     Loading,
-    Playing
+    Playing,
 }
 
 // wow this is awful...

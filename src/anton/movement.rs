@@ -5,7 +5,26 @@ use parry2d::{math::Point, na::Vector2, query::{Ray, RayCast}};
 
 use crate::{apartment_mapping::ApartmentMesh, GameState};
 
-use super::{Speed, Wandering};
+#[derive(Component, Default)]
+#[require(Speed, Transform, Velocity)]
+pub struct Wandering {
+    pub timer: Timer,
+    pub moving: bool,
+    pub goal: Vec2
+}
+
+#[derive(Component)]
+pub struct Speed(pub f32);
+
+impl Default for Speed {
+    fn default() -> Self {
+        Self(0.005)
+    }
+}
+
+#[derive(Component, Default)]
+#[require(Transform)]
+pub struct Velocity(pub Vec2);
 
 pub struct MovementPlugin;
 impl Plugin for MovementPlugin {
@@ -19,10 +38,6 @@ impl Plugin for MovementPlugin {
         ).run_if(in_state(GameState::Playing)));
     }
 }
-
-#[derive(Component, Default)]
-#[require(Transform)]
-pub struct Velocity(pub Vec2);
 
 const OFFSET: f32 = 0.02;
 
