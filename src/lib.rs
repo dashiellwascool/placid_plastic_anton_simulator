@@ -4,11 +4,13 @@ use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use camera::GameCameraPlugin;
+use ui::TheUiPlugin;
 
 mod camera;
 mod anton;
 mod apartment;
 mod apartment_mapping;
+mod ui;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -25,7 +27,8 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
             GameCameraPlugin,
             ApartmentPlugin,
             ApartmentMappingPlugin,
-            AntonPlugin
+            AntonPlugin,
+            TheUiPlugin,
         ));
 
         app.init_state::<GameState>();
