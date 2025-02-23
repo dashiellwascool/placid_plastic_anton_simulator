@@ -1,5 +1,5 @@
 use bevy::{gltf::GltfMesh, prelude::*};
-use parry2d::{math::Point, shape::TriMesh};
+use parry2d::{math::Point, shape::{TriMesh, TriMeshFlags}};
 
 use crate::GameAssets;
 
@@ -47,7 +47,9 @@ pub fn setup(
 
     
 
-    let trimesh = TriMesh::new(vertices, indices).unwrap();
+    let mut trimesh = TriMesh::new(vertices, indices).unwrap();
+
+    trimesh.set_flags(TriMeshFlags::all()).expect("wtf");
 
     commands.insert_resource(ApartmentMesh(trimesh));
 }

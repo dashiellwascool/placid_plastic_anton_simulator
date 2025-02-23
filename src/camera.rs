@@ -21,6 +21,10 @@ fn setup(mut commands: Commands) {
     commands.insert_resource(ClearColor(Color::srgb(0.35, 0.48, 0.66)));
 
     commands.spawn(
-        PanOrbitCamera::default()
+        PanOrbitCamera {
+            pitch: Some(1.0),
+            radius: Some(7.0),
+            ..default()
+        }
     );
 }

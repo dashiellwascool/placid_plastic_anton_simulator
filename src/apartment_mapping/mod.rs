@@ -23,20 +23,36 @@ impl Plugin for ApartmentMappingPlugin {
 }
 
 fn debug(mut gizmos: Gizmos, mesh: Res<ApartmentMesh>) {
-    gizmos.linestrip(mesh.0.vertices().iter().map(|p| Vec3::new(p.x, 0., p.y)), BLUE);
-    for p in mesh.0.vertices().iter() {
-        gizmos.sphere(Isometry3d::from_xyz(p.x, 0., p.y), 0.05, BLUE);
-    }
+    //gizmos.linestrip(mesh.0.vertices().iter().map(|p| Vec3::new(p.x, 0., p.y)), BLUE);
+    //for p in mesh.0.vertices().iter() {
+    //    gizmos.sphere(Isometry3d::from_xyz(p.x, 0., p.y), 0.05, BLUE);
+    //}
+//
+    //let test_points = vec![Vec2::new(0., 0.), Vec2::new(-5., 0.), Vec2::new(-1.17689, -0.004271), Vec2::new(-1.14602, -0.04187)];
+    //for point in test_points {
+    //    let success = mesh.point_inside(point);
+    //    let color = match success {
+    //        true => LIME,
+    //        false => RED
+    //    };
+//
+    //    gizmos.sphere(Isometry3d::from_xyz(point.x, 0., point.y), 0.01, color);
+//
+    //}
 
-    let test_points = vec![Vec2::new(0., 0.), Vec2::new(-5., 0.), Vec2::new(-1.17689, -0.004271), Vec2::new(-1.14602, -0.04187)];
-    for point in test_points {
-        let success = mesh.point_inside(point);
-        let color = match success {
-            true => LIME,
-            false => RED
-        };
+    let mut iter = mesh.triangles();
+    loop {
+        if let Some(triangle) = iter.next() {
+          // line between a and b
+          gizmos.line(Vec3::new(triangle.a.x, 0.0, triangle.a.y), Vec3::new(triangle.b.x, 0.0, triangle.b.y), Color::srgb(0.0, 0.0, 1.0));
 
-        gizmos.sphere(Isometry3d::from_xyz(point.x, 0., point.y), 0.01, color);
+          // line between b and c
+          gizmos.line(Vec3::new(triangle.b.x, 0.0, triangle.b.y), Vec3::new(triangle.c.x, 0.0, triangle.c.y), Color::srgb(0.0, 0.0, 1.0));
 
+          // line between c and a  
+          gizmos.line(Vec3::new(triangle.c.x, 0.0, triangle.c.y), Vec3::new(triangle.a.x, 0.0, triangle.a.y), Color::srgb(0.0, 0.0, 1.0));
+        } else {
+            break;
+        }
     }
 }
