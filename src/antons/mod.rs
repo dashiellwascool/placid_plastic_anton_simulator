@@ -1,6 +1,7 @@
 use bevy::prelude::*;
 
 mod behaviors;
+mod antons;
 
 pub struct AntonsPlugin;
 impl Plugin for AntonsPlugin {
