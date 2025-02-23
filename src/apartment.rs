@@ -19,6 +19,10 @@ fn setup(
     // lights
     ambient_light.brightness = 500.;
 
+    commands.spawn((PointLight {
+        ..default()
+    }, Transform::from_xyz(0., 3., 0.)));
+
     // apartment
     let asset = gltf_assets.get(&assets.apartment).unwrap();
 
