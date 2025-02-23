@@ -57,5 +57,11 @@ pub struct GameAssets {
     apartment_floor: Handle<Gltf>,
 
     #[asset(path = "antons/furryton.png")]
-    furryton: Handle<Image>
+    furryton: Handle<Image>,
+
+    #[asset(path = "fonts/FuzzyBubbles-Regular.ttf")]
+    font_fuzzybubbles: Handle<Font>,
+
+    #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
+    font_fuzzybubbles_bold: Handle<Font>,
 }
