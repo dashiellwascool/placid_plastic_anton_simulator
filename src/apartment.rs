@@ -17,7 +17,7 @@ fn setup(
     mut ambient_light: ResMut<AmbientLight>
 ) {
     // lights
-    ambient_light.brightness = 1000.;
+    ambient_light.brightness = 500.;
 
     // apartment
     let asset = gltf_assets.get(&assets.apartment).unwrap();
