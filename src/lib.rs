@@ -117,4 +117,18 @@ pub struct GameAssets {
     warewolf: Handle<Image>,
     #[asset(path = "antons/xtreme_xplosive_fisher.png")]
     xtreme_xplosive_fisher: Handle<Image>,
+    #[asset(path = "antons/fax.png")]
+    fax: Handle<Image>,
+    #[asset(path = "antons/gooby_hobo.png")]
+    gooby_hobo: Handle<Image>,
+    #[asset(path = "antons/baby_with_a_hammer.png")]
+    baby_with_a_hammer: Handle<Image>,
+    #[asset(path = "antons/biter.png")]
+    biter: Handle<Image>,
+    #[asset(path = "antons/one_more.png")]
+    one_more: Handle<Image>,
+    #[asset(path = "antons/cortana.png")]
+    cortana: Handle<Image>,
+    #[asset(path = "antons/anton_party.png")]
+    anton_party: Handle<Image>,
 }
