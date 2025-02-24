@@ -3,6 +3,7 @@ use apartment::ApartmentPlugin;
 use apartment_mapping::ApartmentMappingPlugin;
 use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
+use bevy_easings::EasingsPlugin;
 use camera::GameCameraPlugin;
 use game_handler::GameHandlerPlugin;
 use ui::TheUiPlugin;
@@ -35,7 +36,8 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
             TheUiPlugin,
             GameHandlerPlugin,
             // Library plugins
-            BillboardPlugin
+            BillboardPlugin,
+            EasingsPlugin::default(),
         ));
 
         app.init_state::<GameState>();

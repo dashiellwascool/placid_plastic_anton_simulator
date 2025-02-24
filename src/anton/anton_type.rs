@@ -45,12 +45,12 @@ impl AntonType {
     /// Returns an Entity with components necessary for the unique Anton
     pub fn spawn(anton: Self, commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
         let entity = commands.spawn_empty().id();
-
+        commands.trigger(SpawnJoinText(vec![
+            "Furryton has joined the party!".to_string()
+        ]));
         match anton {
             AntonType::Furryton => {
-                commands.trigger(SpawnJoinText(vec![
-                    "Furryton has joined the party!".to_string()
-                ]));
+                
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.furryton.clone()));
