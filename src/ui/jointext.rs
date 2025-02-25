@@ -1,9 +1,8 @@
 use std::time::Duration;
 
-use bevy::{
-    animation::{animated_field, AnimationTargetId},
-    prelude::*,
-};
+use bevy::
+    prelude::*
+;
 use rand::prelude::*;
 
 use crate::GameAssets;

@@ -1,4 +1,4 @@
-use bevy::{color::palettes::css::{BLUE, LIME, RED}, prelude::*};
+use bevy::prelude::*;
 use parry2d::{math::Point, query::PointQuery, shape::TriMesh};
 
 use crate::GameState;

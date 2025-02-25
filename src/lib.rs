@@ -67,8 +67,8 @@ pub struct GameAssets {
     // ui assets
     #[asset(path = "fonts/FuzzyBubbles-Regular.ttf")]
     font_fuzzybubbles: Handle<Font>,
-    #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
-    font_fuzzybubbles_bold: Handle<Font>,
+    /* #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
+    font_fuzzybubbles_bold: Handle<Font>, */
 
     // antons
     #[asset(path = "antons/bus_driver.png")]

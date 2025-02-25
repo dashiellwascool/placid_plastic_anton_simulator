@@ -41,7 +41,7 @@ impl Plugin for MovementPlugin {
 
 const OFFSET: f32 = 0.02;
 
-fn do_movement(mut query: Query<(&mut Transform, &Velocity)>, map: Res<ApartmentMesh>, mut gizmos: Gizmos) {
+fn do_movement(mut query: Query<(&mut Transform, &Velocity)>, map: Res<ApartmentMesh>) {
     for (mut transform, velocity) in &mut query {
         let mut translation2d = Vec2::new(transform.translation.x, transform.translation.z);
         
