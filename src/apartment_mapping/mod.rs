@@ -14,11 +14,14 @@ impl ApartmentMesh {
     }
 }
 
+/// When true: Draws debug lines and funny things like that
+const DEBUGGING: bool = false;
+
 pub struct ApartmentMappingPlugin;
 impl Plugin for ApartmentMappingPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(OnEnter(GameState::Playing), setup::setup);
-        app.add_systems(Update, debug.run_if(in_state(GameState::Playing)));
+        app.add_systems(Update, debug.run_if(in_state(GameState::Playing).and(|| DEBUGGING)));
     }
 }
 
