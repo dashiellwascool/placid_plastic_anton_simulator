@@ -5,6 +5,7 @@ use rand::{
     distr::{Distribution, StandardUniform},
     Rng,
 };
+use chrono::{Datelike, Local, Weekday};
 
 use crate::GameAssets;
 
@@ -46,11 +47,11 @@ impl AntonType {
     pub fn spawn(anton: Self, commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
         let entity = commands.spawn_empty().id();
 
+        let mut message: Vec<String> = vec![];
+
         match anton {
             AntonType::Furryton => {
-                commands.trigger(SpawnJoinText(vec![
-                    "Furryton has joined the party!".to_string()
-                ]));
+                message.push("Furryton has joined the party!".to_string());
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.furryton.clone()));
@@ -81,7 +82,7 @@ impl AntonType {
                     .insert(BillboardTexture(assets.caffeine_king.clone()));
             }
             AntonType::CtrlFU => {
-                commands.trigger(SpawnJoinText(vec!["Ctrl + F + U".to_string()]));
+                message.push("Ctrl + F + U".to_string());
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.ctrl_f_u.clone()));
@@ -97,7 +98,7 @@ impl AntonType {
                     .insert(BillboardTexture(assets.scarecrow_art.clone()));
             }
             AntonType::Rubton => {
-                commands.trigger(SpawnJoinText(vec!["No way new RWBY episode??".to_string()]));
+                message.push("No way new RWBY episode??".to_string());
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.rubton.clone()));
@@ -158,6 +159,14 @@ impl AntonType {
                     .insert(BillboardTexture(assets.molerat.clone()));
             }
             AntonType::FridayFrogger => {
+                let today = Local::now().weekday();
+                if today == Weekday::Fri {
+                    message.push("Det är fredag mina bekanta".to_string());
+                }else{
+                    message.push("Kväk!".to_string());
+                    message.push("Is it Friday yet?".to_string());
+                }
+
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.friday_frogger.clone()));
@@ -178,6 +187,9 @@ impl AntonType {
                     .insert(BillboardTexture(assets.gooby_hobo.clone()));
             }
             AntonType::BabyWithAHammer => {
+                message.push("Where is the key located?".to_string());
+                message.push("I want to destroy a tower.".to_string());
+                message.push("A literal baby has joined and he's destroying your towers!".to_string());
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.baby_with_a_hammer.clone()));
@@ -203,6 +215,8 @@ impl AntonType {
                     .insert(BillboardTexture(assets.anton_party.clone()));
             }
         }
+
+        commands.trigger(SpawnJoinText(message));
 
         entity
     }
