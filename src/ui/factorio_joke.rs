@@ -16,7 +16,7 @@ pub struct FactorioJokeTimer {
 #[derive(Component)]
 pub struct FactorioJokeMarker;
 
-pub fn spawn_factorio_joke(trigger: Trigger<SpawnFactorioJoke>, mut commands: Commands, mut tell: ResMut<FactorioJokeTimer>, assets: Res<GameAssets>) {
+pub fn spawn_factorio_joke(_: Trigger<SpawnFactorioJoke>, mut commands: Commands, mut tell: ResMut<FactorioJokeTimer>, assets: Res<GameAssets>) {
     commands.trigger(PlaySoundEvent(assets.sfx_factorio_alert.clone()));
 
     tell.timer = Timer::new(Duration::from_secs(13), TimerMode::Once);
