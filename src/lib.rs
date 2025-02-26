@@ -73,6 +73,9 @@ pub struct GameAssets {
     /* #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
     font_fuzzybubbles_bold: Handle<Font>, */
 
+    #[asset(path = "ui/danger-icon.png")]
+    ui_danger_icon: Handle<Image>,
+
     // Sounds
     #[asset(path = "sfx/honk.ogg")]
     sfx_honk: Handle<AudioSource>,

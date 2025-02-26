@@ -7,6 +7,7 @@ use rand::{
 };
 use chrono::{Datelike, Local, Weekday};
 use crate::misc::play_sound_event::PlaySoundEvent;
+use crate::ui::factorio_joke::SpawnFactorioJoke;
 
 use crate::GameAssets;
 
@@ -235,7 +236,7 @@ impl AntonType {
                 // TODO: Create "play sound" event and play Factorio warning sound
                 message.push("The biter has infilitrated the party!".to_string());
 
-                commands.trigger(PlaySoundEvent(assets.sfx_factorio_alert.clone()));
+                commands.trigger(SpawnFactorioJoke);
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.biter.clone()));
