@@ -6,6 +6,7 @@ use rand::{
     Rng,
 };
 use chrono::{Datelike, Local, Weekday};
+use crate::misc::play_sound_event::PlaySoundEvent;
 
 use crate::GameAssets;
 
@@ -121,8 +122,8 @@ impl AntonType {
                     .insert(BillboardTexture(assets.rubton.clone()));
             }
             AntonType::HonkNetworker => {
-                // TODO: Play HONK sound, or add behavior to randomly do so.
                 message.push("HONK!".to_string());
+                commands.trigger(PlaySoundEvent(assets.sfx_honk.clone()));
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.honk_networker.clone()));
@@ -233,6 +234,8 @@ impl AntonType {
             AntonType::Biter => {
                 // TODO: Create "play sound" event and play Factorio warning sound
                 message.push("The biter has infilitrated the party!".to_string());
+
+                commands.trigger(PlaySoundEvent(assets.sfx_factorio_alert.clone()));
                 commands
                     .entity(entity)
                     .insert(BillboardTexture(assets.biter.clone()));

@@ -5,6 +5,7 @@ use bevy::prelude::*;
 use bevy_asset_loader::prelude::*;
 use camera::GameCameraPlugin;
 use game_handler::GameHandlerPlugin;
+use misc::MiscPlugin;
 use ui::TheUiPlugin;
 use bevy_mod_billboard::prelude::*;
 
@@ -14,6 +15,7 @@ mod apartment_mapping;
 mod camera;
 mod ui;
 mod game_handler;
+mod misc;
 
 pub struct PlacidPlasticAntonSimulatorPlugin;
 impl Plugin for PlacidPlasticAntonSimulatorPlugin {
@@ -34,6 +36,7 @@ impl Plugin for PlacidPlasticAntonSimulatorPlugin {
             AntonPlugin,
             TheUiPlugin,
             GameHandlerPlugin,
+            MiscPlugin,
             // Library plugins
             BillboardPlugin
         ));
@@ -69,6 +72,12 @@ pub struct GameAssets {
     font_fuzzybubbles: Handle<Font>,
     /* #[asset(path = "fonts/FuzzyBubbles-Bold.ttf")]
     font_fuzzybubbles_bold: Handle<Font>, */
+
+    // Sounds
+    #[asset(path = "sfx/honk.ogg")]
+    sfx_honk: Handle<AudioSource>,
+    #[asset(path = "sfx/alert-destroyed.ogg")]
+    sfx_factorio_alert: Handle<AudioSource>,
 
     // antons
     #[asset(path = "antons/bus_driver.png")]
