@@ -4,7 +4,7 @@ use crate::GameState;
 
 pub mod jointext;
 pub mod factorio_joke;
-mod timer;
+pub mod timer;
 
 pub struct TheUiPlugin;
 impl Plugin for TheUiPlugin {
@@ -12,7 +12,7 @@ impl Plugin for TheUiPlugin {
         app.add_systems(OnEnter(GameState::Playing), (timer::setup, jointext::setup));
         app.add_systems(
             Update,
-            (jointext::update, factorio_joke::update_factorio_joke).run_if(in_state(GameState::Playing)),
+            (jointext::update, factorio_joke::update_factorio_joke, timer::update).run_if(in_state(GameState::Playing)),
         );
 
         app.init_resource::<factorio_joke::FactorioJokeTimer>();

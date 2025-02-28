@@ -3,7 +3,7 @@ use bevy::prelude::*;
 use crate::GameAssets;
 
 #[derive(Component)]
-struct TimerText;
+pub struct TimerText(pub String);
 
 pub fn setup(mut commands: Commands, assets: Res<GameAssets>) {
 
@@ -18,8 +18,8 @@ pub fn setup(mut commands: Commands, assets: Res<GameAssets>) {
             ..default()
         },))
         .with_child((
-            Text::new("62"),
-            TimerText,
+            Text::new(""),
+            TimerText(String::new()),
             TextFont {
                 font: assets.font_fuzzybubbles.clone(),
                 font_size: 24.0,
@@ -27,4 +27,10 @@ pub fn setup(mut commands: Commands, assets: Res<GameAssets>) {
             },
             TextLayout::new_with_justify(JustifyText::Center).with_no_wrap(),
         ));
+}
+
+pub fn update(mut query: Query<(&mut Text, &TimerText), Changed<TimerText>>) {
+    for (mut text, timer) in &mut query {
+        text.0 = timer.0.clone();
+    }
 }
