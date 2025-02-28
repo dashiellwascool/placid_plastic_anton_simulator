@@ -1,16 +1,13 @@
 use crate::ui::jointext::SpawnJoinText;
 use bevy::prelude::*;
 use bevy_mod_billboard::BillboardTexture;
-use rand::{
-    distr::{Distribution, StandardUniform},
-    Rng,
-};
 use chrono::{Datelike, Local, Weekday};
 use crate::misc::play_sound_event::PlaySoundEvent;
 use crate::ui::factorio_joke::SpawnFactorioJoke;
 
 use crate::GameAssets;
 
+#[derive(Component, Hash, PartialEq, Eq, Debug, Clone, Copy)]
 pub enum AntonType {
     Furryton,
     BusDriver,
@@ -44,10 +41,19 @@ pub enum AntonType {
     AntonParty,
 }
 
+pub const SPAWNABLE_ANTONS: [AntonType; 30] = [
+    AntonType::Furryton, AntonType::BusDriver, AntonType::CampingTon, AntonType::PetRocketRacer, 
+    AntonType::SmokingCatboyAntonFlippingYouOff, AntonType::CaffeineKing, AntonType::CtrlFU, AntonType::Mug, 
+    AntonType::ScarecrowArt, AntonType::Rubton, AntonType::HonkNetworker, AntonType::HappyZergling, AntonType::SnailTrail, 
+    AntonType::XtremeXplosiveFisher, AntonType::Pentacat, AntonType::Greger, AntonType::Rover, AntonType::Warewolf, 
+    AntonType::Pernilla, AntonType::VanillaIcecream, AntonType::Molerat, AntonType::FridayFrogger, AntonType::DailyAnton16, 
+    AntonType::Fax, AntonType::GoobyTheHobo, AntonType::BabyWithAHammer, AntonType::Biter, AntonType::OneMore, AntonType::Cortana, AntonType::AntonParty
+];
+
 impl AntonType {
     /// Returns an Entity with components necessary for the unique Anton
     pub fn spawn(anton: Self, commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
-        let entity = commands.spawn_empty().id();
+        let entity = commands.spawn(anton).id();
 
         let mut message: Vec<String> = vec![];
 
@@ -267,49 +273,7 @@ impl AntonType {
         entity
     }
 
-    /// Picks a random AntonType and returns the entity spawned
-    pub fn spawn_random(commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
-        let anton: Self = rand::random();
-        Self::spawn(anton, commands, assets)
-    }
-}
-
-impl Distribution<AntonType> for StandardUniform {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> AntonType {
-        match rng.random_range(0..=29) {
-            // Has to be updated for every anton...
-            0 => AntonType::Furryton,
-            1 => AntonType::BusDriver,
-            2 => AntonType::CampingTon,
-            3 => AntonType::PetRocketRacer,
-            4 => AntonType::SmokingCatboyAntonFlippingYouOff,
-            5 => AntonType::CaffeineKing,
-            6 => AntonType::CtrlFU,
-            7 => AntonType::Mug,
-            8 => AntonType::ScarecrowArt,
-            9 => AntonType::Rubton,
-            10 => AntonType::HonkNetworker,
-            11 => AntonType::HappyZergling,
-            12 => AntonType::SnailTrail,
-            13 => AntonType::XtremeXplosiveFisher,
-            14 => AntonType::Pentacat,
-            15 => AntonType::Greger,
-            16 => AntonType::Rover,
-            17 => AntonType::Warewolf,
-            18 => AntonType::Pernilla,
-            19 => AntonType::VanillaIcecream,
-            20 => AntonType::Molerat,
-            21 => AntonType::FridayFrogger,
-            22 => AntonType::DailyAnton16,
-            23 => AntonType::Fax,
-            24 => AntonType::GoobyTheHobo,
-            25 => AntonType::BabyWithAHammer,
-            26 => AntonType::Biter,
-            27 => AntonType::OneMore,
-            28 => AntonType::Cortana,
-            29 => AntonType::AntonParty,
-
-            i => panic!("Invalid random anton number {i}"),
-        }
+    pub fn spawn_random_subset(antons: &Vec<AntonType>, commands: &mut Commands, assets: &Res<GameAssets>) -> Entity {
+        Self::spawn(antons[rand::random_range(0..antons.len())], commands, assets)
     }
 }

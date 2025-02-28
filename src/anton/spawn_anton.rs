@@ -1,7 +1,9 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, utils::HashSet};
 use bevy_mod_billboard::prelude::*;
 
 use crate::{anton::{anton_type::AntonType, movement::Wandering, Anton}, GameAssets};
+
+use super::anton_type::SPAWNABLE_ANTONS;
 
 const PX_SIZE: Vec2 = Vec2::new(496., 662.); // :o)
 const PIXELS_PER_METER: f32 = 1500.0;
@@ -10,10 +12,24 @@ const SPAWN_LOCATION: Vec3 = Vec3::new(0.663, 0., -0.410);
 
 #[derive(Event)]
 pub struct SpawnRandomAnton; // Possibly rename and have a Some(AntonType) and spawn random if None
-pub fn spawn_anton(_trigger: Trigger<SpawnRandomAnton>, mut commands: Commands, assets: Res<GameAssets>, mut meshes: ResMut<Assets<Mesh>>) {
+pub fn spawn_anton(_trigger: Trigger<SpawnRandomAnton>, antons: Query<&AntonType>, mut commands: Commands, assets: Res<GameAssets>, mut meshes: ResMut<Assets<Mesh>>) {
+
+    // spawn unique antons until we run out of antons then just spawn anything
+    let mut spawnables: HashSet<AntonType> = HashSet::from(SPAWNABLE_ANTONS);
+    for anton in &antons {
+        spawnables.remove(anton);
+    }
+    if spawnables.is_empty() {
+        spawnables = HashSet::from(SPAWNABLE_ANTONS);
+    }
+    let spawnables: Vec<AntonType> = spawnables.into_iter().collect();
+
+
+    // I still don't like this and think this should be generalized and not hard coded
+    // Something like a pixels-per-meter thing instead. - Dashiell
     let size = Vec2::new(PX_SIZE.x / PIXELS_PER_METER, PX_SIZE.y / PIXELS_PER_METER);
 
-    let random_anton = AntonType::spawn_random(&mut commands, &assets);
+    let random_anton = AntonType::spawn_random_subset(&spawnables, &mut commands, &assets);
     let mut random_anton = commands.entity(random_anton);
     
     random_anton.insert((
@@ -23,7 +39,6 @@ pub fn spawn_anton(_trigger: Trigger<SpawnRandomAnton>, mut commands: Commands, 
         BillboardLockAxis { y_axis: true, rotation: false },
         Wandering::default(),
     ));
-
 }
 
 /* const PIXELS_PER_METER: f32 = 1500.0;
