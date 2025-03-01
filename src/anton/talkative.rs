@@ -90,7 +90,6 @@ fn talking(mut query: Query<(&mut Talkative, Entity, &mut BillboardText), With<T
         talkative.timer.tick(time.delta());
 
         if talkative.timer.just_finished() {
-            info!("no more talking");
             commands.entity(entity).remove::<Talking>();
             text.0 = String::new();
 
