@@ -66,6 +66,8 @@ pub struct GameAssets {
     apartment: Handle<Gltf>,
     #[asset(path = "apartment_floor.glb")]
     apartment_floor: Handle<Gltf>,
+    #[asset(path = "door.glb")]
+    door: Handle<Gltf>,
 
     // ui assets
     #[asset(path = "fonts/FuzzyBubbles-Regular.ttf")]
