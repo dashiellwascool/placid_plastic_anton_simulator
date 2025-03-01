@@ -1,18 +1,25 @@
 use bevy::{prelude::*, utils::HashSet};
 use bevy_mod_billboard::prelude::*;
 
-use crate::{anton::{anton_type::AntonType, movement::Wandering, Anton}, GameAssets};
+use crate::{anton::{anton_type::AntonType, movement::Wandering, Anton}, apartment::{Door, DoorAnimationNodeIndex}, GameAssets};
 
 use super::anton_type::SPAWNABLE_ANTONS;
 
 const PX_SIZE: Vec2 = Vec2::new(496., 662.); // :o)
 const PIXELS_PER_METER: f32 = 1500.0;
 
-const SPAWN_LOCATION: Vec3 = Vec3::new(0.663, 0., -0.410);
+const SPAWN_LOCATION: Vec3 = Vec3::new(0.663, 0., -0.350);
 
 #[derive(Event)]
 pub struct SpawnAnton(pub Option<AntonType>);
-pub fn spawn_anton(event: Trigger<SpawnAnton>, antons: Query<&AntonType>, mut commands: Commands, assets: Res<GameAssets>, mut meshes: ResMut<Assets<Mesh>>) {
+pub fn spawn_anton(
+    event: Trigger<SpawnAnton>,
+    antons: Query<&AntonType>,
+    mut commands: Commands,
+    assets: Res<GameAssets>,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut door_query: Query<(&mut AnimationPlayer, &DoorAnimationNodeIndex), With<Door>>,
+) {
 
     let anton_type = match event.0 {
         Some(t) => t,
@@ -46,4 +53,11 @@ pub fn spawn_anton(event: Trigger<SpawnAnton>, antons: Query<&AntonType>, mut co
         BillboardLockAxis { y_axis: true, rotation: false },
         Wandering::default(),
     ));
+
+    // Start door animation
+    for (mut player, index) in &mut door_query {
+        player.stop(index.0);
+        player.play(index.0);
+    }
+
 }

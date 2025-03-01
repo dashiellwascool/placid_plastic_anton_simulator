@@ -24,7 +24,7 @@ fn setup(mut commands: Commands) {
     // spawn
     commands.spawn(SpawnTimer(Timer::from_seconds(60., TimerMode::Repeating)));
 
-    for _ in 0..100 {
+    for _ in 0..0 {
         commands.trigger(SpawnAnton(None)); // TODO: replace with regular anton
     }
 }
