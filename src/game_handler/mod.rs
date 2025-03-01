@@ -23,6 +23,10 @@ fn setup(mut commands: Commands) {
 
     // spawn
     commands.spawn(SpawnTimer(Timer::from_seconds(60., TimerMode::Repeating)));
+
+    for _ in 0..100 {
+        commands.trigger(SpawnAnton(None)); // TODO: replace with regular anton
+    }
 }
 
 fn update_timer(mut commands: Commands, mut query: Query<&mut SpawnTimer>, time: Res<Time>, mut timer_ui: Query<&mut TimerText>) {

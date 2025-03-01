@@ -145,4 +145,6 @@ pub struct GameAssets {
     cortana: Handle<Image>,
     #[asset(path = "antons/anton_party.png")]
     anton_party: Handle<Image>,
+    #[asset(path = "antons/ciaociao.png")]
+    ciaociao: Handle<Image>,
 }
