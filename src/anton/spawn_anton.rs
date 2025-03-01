@@ -1,4 +1,4 @@
-use bevy::{prelude::*, utils::{tracing::event, HashSet}};
+use bevy::{prelude::*, utils::HashSet};
 use bevy_mod_billboard::prelude::*;
 
 use crate::{anton::{anton_type::AntonType, movement::Wandering, Anton}, GameAssets};
@@ -47,40 +47,3 @@ pub fn spawn_anton(event: Trigger<SpawnAnton>, antons: Query<&AntonType>, mut co
         Wandering::default(),
     ));
 }
-
-/* const PIXELS_PER_METER: f32 = 1500.0;
-
-fn spawn_anton(mut commands: Commands, assets: Res<GameAssets>, images: Res<Assets<Image>>, mut meshes: ResMut<Assets<Mesh>>) {
-
-    let px_size = images.get(&assets.furryton).unwrap().size().as_vec2();
-    let size = Vec2::new(px_size.x / PIXELS_PER_METER, px_size.y / PIXELS_PER_METER);
-
-    for _ in 0..150 {
-        Anton::spawn_random(&mut commands, &assets, &images, &mut meshes);
-    }
-} */
-
-/* impl Anton {
-    // there are so many things here what if we just made an observer that spawns antons instead???
-    pub fn spawn(anton: AntonType, commands: &mut Commands, assets: &Res<GameAssets>, images: &Res<Assets<Image>>, meshes: &mut ResMut<Assets<Mesh>>) -> Entity {
-        let image = AntonType::get_image(anton, assets);
-        let px_size = images.get(&image).unwrap().size().as_vec2();
-        let size = Vec2::new(px_size.x / PIXELS_PER_METER, px_size.y / PIXELS_PER_METER);    
-        
-        commands.spawn((
-            Anton(anton.clone()),
-            Transform::from_xyz(0.0, size.y / 2.0, 0.0),
-            BillboardTexture(image),
-            BillboardMesh(meshes.add(Rectangle::from_size(size))),
-            BillboardLockAxis { y_axis: true, rotation: false },
-            Wandering::default()
-        )).insert(match anton {
-            _ => (),
-        }).id()
-    }
-
-    pub fn spawn_random(commands: &mut Commands, assets: &Res<GameAssets>, images: &Res<Assets<Image>>, meshes: &mut ResMut<Assets<Mesh>>) -> Entity {
-        let anton: AntonType = rand::random();
-        Anton::spawn(anton, commands, assets, images, meshes)
-    }
-} */
