@@ -1,8 +1,9 @@
 use bevy::prelude::*;
 
+use crate::anton::anton_type::AntonType;
 use crate::ui::timer::TimerText;
 use crate::GameState;
-use crate::anton::spawn_anton::SpawnRandomAnton;
+use crate::anton::spawn_anton::SpawnAnton;
 
 pub struct GameHandlerPlugin;
 impl Plugin for GameHandlerPlugin {
@@ -14,15 +15,11 @@ impl Plugin for GameHandlerPlugin {
     }
 }
 
-const TEST_ANTONS: u32 = 10;
-
 #[derive(Component)]
 pub struct SpawnTimer(Timer);
 
 fn setup(mut commands: Commands) {
-    for _ in 0..TEST_ANTONS {
-        commands.trigger(SpawnRandomAnton);
-    }
+    commands.trigger(SpawnAnton(None)); // TODO: replace with regular anton
 
     // spawn
     commands.spawn(SpawnTimer(Timer::from_seconds(60., TimerMode::Repeating)));
@@ -36,6 +33,6 @@ fn update_timer(mut commands: Commands, mut query: Query<&mut SpawnTimer>, time:
     timer_ui.single_mut().0 = format!("{}", timer.0.remaining().as_secs());
 
     if timer.0.just_finished() {
-        commands.trigger(SpawnRandomAnton);
+        commands.trigger(SpawnAnton(None));
     }
 }
