@@ -8,6 +8,7 @@ use crate::ui::factorio_joke::SpawnFactorioJoke;
 use crate::GameAssets;
 
 use super::behavior_components::random_sound::RandomSound;
+use super::talkative::{Talkative, TalkativeBundle};
 
 #[derive(Component, Hash, PartialEq, Eq, Debug, Clone, Copy)]
 pub enum AntonType {
@@ -64,7 +65,13 @@ impl AntonType {
                 message.push("Furryton has joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.furryton.clone()));
+                    .insert(BillboardTexture(assets.furryton.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "I am not a furry!", "I swear I am not a furry!", "Why does everyone think I'm a furry???"
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::BusDriver => {
                 message.push("Our designated anti-covid bus driver has arrived!".to_string());
@@ -79,7 +86,13 @@ impl AntonType {
                 message.push("It's Camping Carl no way".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.camping_ton.clone()));
+                    .insert(BillboardTexture(assets.camping_ton.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "I love smores", "I've never had a smore", "I love camping", "Camping is love", "Live. Laugh. Camp"
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::PetRocketRacer => {
                 message.push("Ready to do some pet rocket racing?".to_string());
@@ -92,9 +105,14 @@ impl AntonType {
             AntonType::SmokingCatboyAntonFlippingYouOff => {
                 message.push("what the fuck".to_string());
                 message.push("Smoking catboy Anton flipping you off has joined the party!".to_string());
-                commands.entity(entity).insert(BillboardTexture(
-                    assets.smoking_catboy_anton_flipping_you_off.clone(),
-                ));
+                commands.entity(entity)
+                    .insert(BillboardTexture(assets.smoking_catboy_anton_flipping_you_off.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "Fuck you.", "Lemme smoke on that.", "I am not a furry I just like wearing cat ears."
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::CaffeineKing => {
                 message.push("Caffeine king has decided to stay awake just one more second!".to_string());
@@ -121,14 +139,26 @@ impl AntonType {
                 message.push("Scarecrow Arts has sponsored the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.scarecrow_art.clone()));
+                    .insert(BillboardTexture(assets.scarecrow_art.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "The story goes on", "The story does not go on", "We're releasing a new game its called Anton", "I am scarecrow. I am art."
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::Rubton => {
                 message.push("No way new RWBY episode??".to_string());
                 message.push("This is canon now.".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.rubton.clone()));
+                    .insert(BillboardTexture(assets.rubton.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "None you said 'Aye'.", "I am not a crook.", "Magnets are cool, too...", "You'll never beat me, old man!", "That was... a person."
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::HonkNetworker => {
                 message.push("HONK!".to_string());
@@ -155,7 +185,11 @@ impl AntonType {
                 message.push("Fish? Fish X-plosions? Erm, I think so.".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.xtreme_xplosive_fisher.clone()));
+                    .insert(BillboardTexture(assets.xtreme_xplosive_fisher.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec!["One day I'll buy that fishing rod.", "You wanna watch me blow up some fish?"]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::Pentacat => {
                 message.push("Pentacat has joined the party!".to_string());
@@ -180,7 +214,13 @@ impl AntonType {
                 message.push("AWOOOOO!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.warewolf.clone()));
+                    .insert(BillboardTexture(assets.warewolf.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "AWOOOO!", "Amazon makes me work on a full moon :(", "Sometimes you just gotta wolf all over this joint"
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::Pernilla => {
                 message.push("Pernilla has joined the party!".to_string());
@@ -192,7 +232,13 @@ impl AntonType {
                 message.push("Vanilla ice-cream has joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.vanilla_icecream.clone()));
+                    .insert(BillboardTexture(assets.vanilla_icecream.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "I am vanilla", "Am I the best ice cream?"
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::Molerat => {
                 message.push("The latest Daily Naked Mole-Rat has joined the party!".to_string());
@@ -203,22 +249,36 @@ impl AntonType {
             }
             AntonType::FridayFrogger => {
                 let today = Local::now().weekday();
+
+                let talking_messages: Vec<&'static str>;
                 if today == Weekday::Fri {
                     message.push("Det är fredag mina bekanta".to_string());
+                    talking_messages = vec!["Det är fredag mina bekanta", "Kväk!"];
                 }else{
                     message.push("Kväk!".to_string());
                     message.push("Is it Friday yet?".to_string());
+                    talking_messages = vec!["Kväk!", "Is it Friday yet?", "It's not friday :(", "Fuck man when will it be Friday..."]
                 }
 
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.friday_frogger.clone()));
+                    .insert(BillboardTexture(assets.friday_frogger.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(talking_messages),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::DailyAnton16 => {
                 message.push("Daily Anton #16 has joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.daily_anton_16.clone()));
+                    .insert(BillboardTexture(assets.daily_anton_16.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "It's me daily anton #16", "Femtons unite!"
+                            ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::Fax => {
                 message.push("It's Faxmashine!".to_string());
@@ -254,7 +314,12 @@ impl AntonType {
                 message.push("One more.".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.one_more.clone()));
+                    .insert(BillboardTexture(assets.one_more.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec!["One more", "Give one one more"]),
+                        ..TalkativeBundle::new(assets)
+                    });
+                
             }
             AntonType::Cortana => {
                 message.push("When you first saw Halo, were you blinded by its majesty?".to_string());
@@ -267,7 +332,11 @@ impl AntonType {
                 message.push("Anton has joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.anton_party.clone()));
+                    .insert(BillboardTexture(assets.anton_party.clone()))
+                    .with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec!["It's my birthday!", "Forever 25", "I'm Anton."]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
         }
 

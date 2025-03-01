@@ -45,8 +45,6 @@ pub fn setup(
         }
     }
 
-    
-
     let mut trimesh = TriMesh::new(vertices, indices).unwrap();
 
     trimesh.set_flags(TriMeshFlags::all()).expect("wtf");

@@ -29,8 +29,8 @@ impl RandomSound {
     }
 
     fn reset_timer(&mut self) {
+        self.timer.reset();
         self.timer.set_duration(Duration::from_secs_f32(rand::random_range(self.min_time..self.max_time)));
-        self.timer.unpause();
     }
 }
 
