@@ -7,6 +7,8 @@ use crate::ui::factorio_joke::SpawnFactorioJoke;
 
 use crate::GameAssets;
 
+use super::behavior_components::random_sound::RandomSound;
+
 #[derive(Component, Hash, PartialEq, Eq, Debug, Clone, Copy)]
 pub enum AntonType {
     Furryton,
@@ -133,6 +135,7 @@ impl AntonType {
                 commands.trigger(PlaySoundEvent(assets.sfx_honk.clone()));
                 commands
                     .entity(entity)
+                    .insert(RandomSound::new(assets.sfx_honk.clone(), 10., 30.))
                     .insert(BillboardTexture(assets.honk_networker.clone()));
             }
             AntonType::HappyZergling => {
