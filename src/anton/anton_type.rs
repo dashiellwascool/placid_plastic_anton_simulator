@@ -160,7 +160,13 @@ impl AntonType {
                 message.push("Caffeine king has joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.caffeine_king.clone()));
+                    .insert(BillboardTexture(assets.caffeine_king.clone())).with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            "*Yawn*",
+                            "Zzz...",
+                        ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::CtrlFU => {
                 message.push("Ctrl + F + U".to_string());
@@ -172,7 +178,15 @@ impl AntonType {
                 message.push("What a stupid bird!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.mug.clone()));
+                    .insert(BillboardTexture(assets.mug.clone())).with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            ">:V",
+                            ">:}",
+                            ">:{}",
+                            ">:>",
+                        ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::ScarecrowArt => {
                 message
@@ -221,7 +235,15 @@ impl AntonType {
                 message.push("The happy Zergling has happily joined the party!".to_string());
                 commands
                     .entity(entity)
-                    .insert(BillboardTexture(assets.happy_zergling.clone()));
+                    .insert(BillboardTexture(assets.happy_zergling.clone())).with_child(TalkativeBundle {
+                        talkative: Talkative::default_strs(vec![
+                            ":coolkid:",
+                            ":coolthumbsup:",
+                            ":hidralisk:",
+                            ":lickling:",
+                        ]),
+                        ..TalkativeBundle::new(assets)
+                    });
             }
             AntonType::SnailTrail => {
                 message.push("The snail trail itself has joined the party!".to_string());
@@ -395,7 +417,7 @@ impl AntonType {
                     .entity(entity)
                     .insert(BillboardTexture(assets.one_more.clone()))
                     .with_child(TalkativeBundle {
-                        talkative: Talkative::default_strs(vec!["One more", "Give one one more"]),
+                        talkative: Talkative::default_strs(vec!["One more."]),
                         ..TalkativeBundle::new(assets)
                     });
             }
