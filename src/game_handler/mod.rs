@@ -19,14 +19,10 @@ impl Plugin for GameHandlerPlugin {
 pub struct SpawnTimer(Timer);
 
 fn setup(mut commands: Commands) {
-    commands.trigger(SpawnAnton(Some(AntonType::AntonParty))); // TODO: replace with regular anton
+    commands.trigger(SpawnAnton(Some(AntonType::AntonParty)));
 
     // spawn
     commands.spawn(SpawnTimer(Timer::from_seconds(60., TimerMode::Repeating)));
-
-    for _ in 0..0 {
-        commands.trigger(SpawnAnton(None)); // TODO: replace with regular anton
-    }
 }
 
 fn update_timer(mut commands: Commands, mut query: Query<&mut SpawnTimer>, time: Res<Time>, mut timer_ui: Query<&mut TimerText>) {

@@ -403,7 +403,6 @@ impl AntonType {
                     .insert(BillboardTexture(assets.baby_with_a_hammer.clone()));
             }
             AntonType::Biter => {
-                // TODO: Create "play sound" event and play Factorio warning sound
                 message.push("The biter has infilitrated the party!".to_string());
 
                 commands.trigger(SpawnFactorioJoke);
